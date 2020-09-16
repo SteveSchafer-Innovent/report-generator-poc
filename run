@@ -1,0 +1,7 @@
+#!/bin/sh
+cd $(dirname $0)
+MYJAR="$(find target -name "*.jar")"
+PGSQLJAR="$(find ~/.m2/repository/org/postgresql/postgresql/42.2.16 -name "*.jar")"
+OTHERJARS="$(find ~/.m2/repository/com/innoventsolutions/birt/runtime -name "*.jar" | awk -vORS=: '{ print $1 }')"
+CP="$MYJAR:$PGSQLJAR:$OTHERJARS"
+java -cp "$CP" com.winepos.birt.util.ReportGenerator "$@"
